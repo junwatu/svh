@@ -1,5 +1,5 @@
 {
-  "name": "node-serve-here",
+  "name": "nsh",
   "version": "0.0.1",
   "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
   "description": "nsh is a simple file server for javascript web app development",
@@ -10,6 +10,10 @@
   "dependencies":{
     "commander":"2.0.x",
     "express":"3.0.x"
+  },
+  "repository":{
+      "type":"git",
+      "url":"http://github.com/junwatu/nsh.git"
   },
   "bin":{
       "nsh":"./bin/nsh"
