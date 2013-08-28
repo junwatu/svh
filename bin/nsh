@@ -1,42 +1,45 @@
 #!/usr/bin/node
 
 var program = require('commander'),
+    nsh = require('../'),
     rootPath = require('path'),
     pkg = require('../package.json'),
     v = pkg.version,
+    defValue = {
+        port: 3113
+    };
 
-    outputMessage = function (msg) {
+outputMessage = function (msg) {
+    console.log("  _   _  _____ _    _ ");
+    console.log(" | \\ | |/ ____| |  | |");
+    console.log(" |  \\| | (___ | |__| |");
+    console.log(" | . ` |\\___ \\|  __  |");
+    console.log(" | |\\  |____) | |  | |");
+    console.log(" |_| \\_|_____/|_|  |_|");
+    console.log("                      ");
+    console.log("       Node Serve Here");
+    console.log("                v" + v);
 
-        console.log("  _   _  _____ _    _ ");
-        console.log(" | \\ | |/ ____| |  | |");
-        console.log(" |  \\| | (___ | |__| |");
-        console.log(" | . ` |\\___ \\|  __  |");
-        console.log(" | |\\  |____) | |  | |");
-        console.log(" |_| \\_|_____/|_|  |_|");
-        console.log("                      ");
-        console.log("       Node Serve Here");
-        console.log("                v" + v);
-
-        if(msg){
-            console.log("")
-            console.log(msg);
-            console.log("")
-        }
+    if (msg) {
+        console.log("");
+        console.log(msg);
+        console.log("")
     }
+}
 
 program
-    .version(v)
+    .version(v);
 
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
-    .option('-p,--port <port>','server port, default to 3113')
-    .action(function(path, program){
+    .option('-p,--port <port>', 'server port, default to 3113')
+    .action(function (path, program) {
         var projectPath = rootPath.resolve(process.cwd(), path || ''),
-            port = program.port || 3113;
+            port = program.port || defValue.port;
+        nsh.server(path, {port: port}, function () {
+            outputMessage('NSH is listening at http://locahost:' + port);
+        })
+    });
 
-        outputMessage('NSH is listening at http://locahost:'+port);
-        //console.log('[Root Directory] '+projectPath);
-    })
-
-program.parse(process.argv)
+program.parse(process.argv);
