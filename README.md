@@ -1,12 +1,5 @@
 Node Serve Here alias NSH
 =========================
-  _   _  _____ _    _
- | \ | |/ ____| |  | |
- |  \| | (___ | |__| |
- | . ` |\___ \|  __  |
- | |\  |____) | |  | |
- |_| \_|_____/|_|  |_|
-
 
 Simple file server for html-javascript web app development
 
@@ -24,6 +17,12 @@ run nsh server
 
 ```
 $ nsh serve --port 3003 your_project_dir
+```
+
+nsh will pickup `index.html` file by default. You can customize it with `-i` option
+
+```
+$ nsh server -i main  your_project_dir
 ```
 
 That's it!
