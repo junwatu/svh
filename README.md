@@ -1,5 +1,5 @@
-Node Serve Here alias NSH
-=========================
+SVH (Node Serve Here)
+=====================
 
 Simple file server for html-javascript web app development
 
@@ -10,19 +10,19 @@ Usage
 Install as always via the awesome npm
 
 ```
-$ npm install nsh
+$ npm install svh
 ```
 
-run nsh server
+run svh server
 
 ```
-$ nsh serve --port 3003 your_project_dir
+$ svh serve --port 3003 your_project_dir
 ```
 
 nsh will pickup `index.html` file by default. You can customize it with `-i` option
 
 ```
-$ nsh server -i main  your_project_dir
+$ svh server -i main  your_project_dir
 ```
 
 That's it!
