@@ -13,7 +13,7 @@
   },
   "repository":{
       "type":"git",
-      "url":"http://github.com/junwatu/nsh.git"
+      "url":"http://github.com/junwatu/svh.git"
   },
   "bin":{
       "svh":"./bin/svh"
