@@ -1,8 +1,8 @@
 {
-  "name": "nsh",
+  "name": "svh",
   "version": "0.0.1",
   "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
-  "description": "nsh is a simple file server for javascript web app development",
+  "description": "svh is a simple (file) server for javascript web app development",
   "main": "./lib/core.js",
   "scripts": {
     "test": "echo \"Not Ready Yet :)\" && exit 1"
@@ -16,7 +16,7 @@
       "url":"http://github.com/junwatu/nsh.git"
   },
   "bin":{
-      "nsh":"./bin/nsh"
+      "svh":"./bin/svh"
   },
   "license": "MIT"
 }
