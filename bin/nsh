@@ -6,7 +6,8 @@ var program = require('commander'),
     pkg = require('../package.json'),
     v = pkg.version,
     defValue = {
-        port: 3113
+        port: 3113,
+        homepage: 'index'
     };
 
 outputMessage = function (msg) {
@@ -25,7 +26,7 @@ outputMessage = function (msg) {
         console.log(msg);
         console.log("")
     }
-}
+};
 
 program
     .version(v);
@@ -34,10 +35,16 @@ program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
     .option('-p,--port <port>', 'server port, default to 3113')
+    .option('-i, --index <homepage>', 'main page to render. fill without extension, support html only & default to index')
     .action(function (path, program) {
         var projectPath = rootPath.resolve(process.cwd(), path || ''),
-            port = program.port || defValue.port;
-        nsh.server(path, {port: port}, function () {
+            port = program.port || defValue.port,
+            homepage = program.homepage || defValue.homepage,
+            options = {
+                port: port,
+                homepage: homepage
+            };
+        nsh.server(path, options, function () {
             outputMessage('NSH is listening at http://locahost:' + port);
         })
     });
