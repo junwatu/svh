@@ -1,0 +1,42 @@
+#!/usr/bin/node
+
+var program = require('commander'),
+    rootPath = require('path'),
+    pkg = require('../package.json'),
+    v = pkg.version,
+
+    outputMessage = function (msg) {
+
+        console.log("  _   _  _____ _    _ ");
+        console.log(" | \\ | |/ ____| |  | |");
+        console.log(" |  \\| | (___ | |__| |");
+        console.log(" | . ` |\\___ \\|  __  |");
+        console.log(" | |\\  |____) | |  | |");
+        console.log(" |_| \\_|_____/|_|  |_|");
+        console.log("                      ");
+        console.log("       Node Serve Here");
+        console.log("                v" + v);
+
+        if(msg){
+            console.log("")
+            console.log(msg);
+            console.log("")
+        }
+    }
+
+program
+    .version(v)
+
+program
+    .command('serve [path]')
+    .description('\tRun Node Serve Here! :D')
+    .option('-p,--port <port>','server port, default to 3113')
+    .action(function(path, program){
+        var projectPath = rootPath.resolve(process.cwd(), path || ''),
+            port = program.port || 3113;
+
+        outputMessage('NSH is listening at http://locahost:'+port);
+        //console.log('[Root Directory] '+projectPath);
+    })
+
+program.parse(process.argv)
