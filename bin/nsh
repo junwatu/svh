@@ -45,7 +45,7 @@ program
                 homepage: homepage
             };
         nsh.server(path, options, function () {
-            outputMessage('NSH is listening at http://locahost:' + port);
+            outputMessage('NSH is listening at http://localhost:' + port);
         })
     });
 
