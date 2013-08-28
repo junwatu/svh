@@ -11,15 +11,17 @@ var program = require('commander'),
     };
 
 outputMessage = function (msg) {
-    console.log("  _   _  _____ _    _ ");
-    console.log(" | \\ | |/ ____| |  | |");
-    console.log(" |  \\| | (___ | |__| |");
-    console.log(" | . ` |\\___ \\|  __  |");
-    console.log(" | |\\  |____) | |  | |");
-    console.log(" |_| \\_|_____/|_|  |_|");
-    console.log("                      ");
-    console.log("       Node Serve Here");
-    console.log("                v" + v);
+
+console.log("       _______      ___    _");
+console.log("      / ____\\ \\    / | |  | |");
+console.log("     | (___  \\ \\  / /| |__| |");
+console.log("      \\___ \\  \\ \\/ / |  __  |");
+console.log("      ____) |  \\  /  | |  | |");
+console.log("     |_____/    \\/   |_|  |_|");
+console.log("");
+console.log("             Node Serve Here");
+console.log("                       v" + v);
+
 
     if (msg) {
         console.log("");
@@ -45,7 +47,7 @@ program
                 homepage: homepage
             };
         nsh.server(path, options, function () {
-            outputMessage('NSH is listening at http://localhost:' + port);
+            outputMessage('node will serve you at http://localhost:' + port);
         })
     });
 
