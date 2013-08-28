@@ -1,0 +1,14 @@
+{
+  "name": "node-serve-here",
+  "version": "0.0.1",
+  "description": "nsh is a simple file server for javascript web app development",
+  "main": "nsh.js",
+  "scripts": {
+    "test": "echo \"Not Ready Yet :)\" && exit 1"
+  },
+  "dependencies":{
+    "commander":"2.0.x"
+  },
+  "author": "Equan Pr.",
+  "license": "MIT"
+}
