@@ -1,14 +1,17 @@
 {
   "name": "node-serve-here",
   "version": "0.0.1",
+  "author": "Equan Pr. <eq@junwatu.com>",
   "description": "nsh is a simple file server for javascript web app development",
-  "main": "nsh.js",
+  "main": "./lib/core.js",
   "scripts": {
     "test": "echo \"Not Ready Yet :)\" && exit 1"
   },
   "dependencies":{
     "commander":"2.0.x"
   },
-  "author": "Equan Pr.",
+  "bin":{
+      "nsh":"./bin/nsh"
+  },
   "license": "MIT"
 }
