@@ -9,7 +9,7 @@
   },
   "dependencies":{
     "commander":"2.0.x",
-    "connect":"2.8.x"
+    "express":"3.0.x"
   },
   "bin":{
       "nsh":"./bin/nsh"
