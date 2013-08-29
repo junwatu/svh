@@ -12,15 +12,15 @@ var program = require('commander'),
 
 outputMessage = function (msg) {
 
-console.log("       _______      ___    _");
-console.log("      / ____\\ \\    / | |  | |");
-console.log("     | (___  \\ \\  / /| |__| |");
-console.log("      \\___ \\  \\ \\/ / |  __  |");
-console.log("      ____) |  \\  /  | |  | |");
-console.log("     |_____/    \\/   |_|  |_|");
-console.log("");
-console.log("             Node Serve Here");
-console.log("                       v" + v);
+    console.log("       _______      ___    _");
+    console.log("      / ____\\ \\    / | |  | |");
+    console.log("     | (___  \\ \\  / /| |__| |");
+    console.log("      \\___ \\  \\ \\/ / |  __  |");
+    console.log("      ____) |  \\  /  | |  | |");
+    console.log("     |_____/    \\/   |_|  |_|");
+    console.log("");
+    console.log("             Node Serve Here");
+    console.log("                       v" + v);
 
 
     if (msg) {
