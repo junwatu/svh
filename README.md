@@ -13,17 +13,25 @@ Install as always via the awesome npm
 $ npm install svh
 ```
 
-run svh server
+run svh server on default port 3113
 
 ```
-$ svh serve --port 3003 your_project_dir
+$ svh serve your_project_dir
 ```
 
-nsh will pickup `index.html` file by default. You can customize it with `-i` option
+or customize port with `-p` option
+
+```
+$ svh server -p 3003 your_project_dir
+```
+
+nsh will pickup `index.html` file by default. You can customize it with `-i` option.
+For example to pickup `main.html` as startup page type this command
 
 ```
 $ svh server -i main  your_project_dir
 ```
+
 
 That's it!
 
