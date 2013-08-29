@@ -1,7 +1,7 @@
 SVH (Node Serve Here)
 =====================
 
-Simple file server for html-javascript web app development
+Simple file server for html-javascript web client app development
 
 
 Usage
