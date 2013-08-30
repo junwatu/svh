@@ -63,23 +63,21 @@ program
                     console.log('[info] closing server...');
                     svh.close();
 
-                    console.log('[info] '+new Date()+' starting server...');
-                    svh = app.server(path, options, function () {
-                        outputMessage('node will serve you at http://localhost:' + port);
-                    });
+                    console.log('[info] ' + new Date() + ' starting server...');
+                    svh = app.server(path, options, callback_server(options.port));
                 } else {
-                    console.log('[info] '+new Date()+' starting server...');
+                    console.log('[info] ' + new Date() + ' starting server...');
 
-                    svh = app.server(path, options, function () {
-                        outputMessage('node will serve you at http://localhost:' + port);
-                    });
+                    svh = app.server(path, options, callback_server(options.port));
                 }
             });
         } else {
-            svh = app.server(path, options, function () {
-                outputMessage('node will serve you at http://localhost:' + port);
-            });
+            svh = app.server(path, options, callback_server(options.port));
         }
     });
 
 program.parse(process.argv);
+
+var callback_server = function (port) {
+    outputMessage('node will serve you at http://localhost:' + port);
+};
