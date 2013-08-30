@@ -1,44 +1,62 @@
 SVH (Node Serve Here)
 =====================
 
-Simple file server for html-javascript web client app development
+Simple file server for web client app development.
+
+Svh will serve html, js, css or image files. It work more less like static file server but
+it has auto restart feature for file changes.
 
 
 Usage
 -----
 
-Install as always via the awesome npm
+Install svh via the awesome npm
 
 ```
 $ npm install svh
 ```
 
-run svh server on default port 3113
+help
+
+```
+$ svh serve --help
+
+Usage: serve [options] [path]
+
+  Options:
+
+    -h, --help                output usage information
+    -p,--port <port>          startServer port, default to 3113
+    -m, --main <homepage>     main page to render. fill without extension, support html only & default to index
+    -w, --watch <isWatching>  watch project root directory for file changes.
+
+```
+
+to run svh server on default port 3113
 
 ```
 $ svh serve your_project_dir
 ```
 
-or customize port with `-p` option
+or customize the port with `-p` option
 
 ```
 $ svh serve -p 3003 your_project_dir
 ```
 
-nsh will pickup `index.html` file by default. You can customize it with `-m` option.
-For example to pickup `main.html` as startup page type this command
+svh will pickup `index.html` file by default but you can customize it with `-m` option.
+For example to pickup `main.html` as startup page, type this command
 
 ```
 $ svh serve -m main  your_project_dir
 ```
 
-svh will watch project directory and auto restart it if there is any file changes.
+svh will watch project directory and auto restart it if there are any files changes.
 To disable auto watch use `-w` option
 
 ```
 $ svh server -w false your_project_dir
 ```
-
 
 
 That's it!
