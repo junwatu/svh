@@ -9,7 +9,9 @@
   },
   "dependencies":{
     "commander":"2.0.x",
-    "express":"3.0.x"
+    "express":"3.0.x",
+    "watch":"0.8.x",
+    "chalk":"0.2.x"
   },
   "repository":{
       "type":"git",
