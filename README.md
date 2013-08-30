@@ -27,7 +27,7 @@ Usage: serve [options] [path]
 
     -h, --help                output usage information
     -p,--port <port>          startServer port, default to 3113
-    -m, --main <homepage>     main page to render. fill without extension, support html only & default to index
+    -m, --main <homepage>     main page to render (fill without file extension, support html only).
     -w, --watch <isWatching>  watch project root directory for file changes.
 
 ```
