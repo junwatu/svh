@@ -38,7 +38,7 @@ program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
     .option('-p,--port <port>', 'startServer port, default to 3113')
-    .option('-m, --main <homepage>', 'main page to render. fill without extension, support html only & default to index')
+    .option('-m, --main <homepage>', 'main page to render (fill without file extension, support html only).')
     .option('-w, --watch <isWatching>', 'watch project root directory for file changes.')
     .action(function (path, program) {
         var projectPath = rootPath.resolve(process.cwd(), path || ''),
