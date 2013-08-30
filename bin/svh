@@ -1,34 +1,35 @@
 #!/usr/bin/node
 
 var program = require('commander'),
-    nsh = require('../'),
+    app = require('../'),
     rootPath = require('path'),
+    chalk = require('chalk'),
     pkg = require('../package.json'),
+    watcher = require('watch'),
     v = pkg.version,
     defValue = {
         port: 3113,
-        homepage: 'index'
-    };
+        homepage: 'index',
+        isWatching: true
+    },
+    outputMessage = function (msg) {
 
-outputMessage = function (msg) {
-
-    console.log("       _______      ___    _");
-    console.log("      / ____\\ \\    / | |  | |");
-    console.log("     | (___  \\ \\  / /| |__| |");
-    console.log("      \\___ \\  \\ \\/ / |  __  |");
-    console.log("      ____) |  \\  /  | |  | |");
-    console.log("     |_____/    \\/   |_|  |_|");
-    console.log("");
-    console.log("             Node Serve Here");
-    console.log("                       v" + v);
-
-
-    if (msg) {
+        console.log(chalk.red.bold("       _______      ___    _"));
+        console.log(chalk.red.bold("      / ____\\ \\    / | |  | |"));
+        console.log(chalk.green.bold("     | (___  \\ \\  / /| |__| |"));
+        console.log(chalk.green.bold("      \\___ \\  \\ \\/ / |  __  |"));
+        console.log(chalk.blue.bold("      ____) |  \\  /  | |  | |"));
+        console.log(chalk.blue.bold("     |_____/    \\/   |_|  |_|"));
         console.log("");
-        console.log(msg);
-        console.log("")
-    }
-};
+        console.log(chalk.white.bold("             Node Serve Here"));
+        console.log(chalk.white.bold("                     v ") + chalk.white(v));
+
+        if (msg) {
+            console.log("");
+            console.log(msg);
+            console.log("")
+        }
+    };
 
 program
     .version(v);
@@ -36,19 +37,49 @@ program
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
-    .option('-p,--port <port>', 'server port, default to 3113')
-    .option('-i, --index <homepage>', 'main page to render. fill without extension, support html only & default to index')
+    .option('-p,--port <port>', 'startServer port, default to 3113')
+    .option('-m, --main <homepage>', 'main page to render. fill without extension, support html only & default to index')
+    .option('-w, --watch <isWatching>', 'watch project root directory for file changes.')
     .action(function (path, program) {
         var projectPath = rootPath.resolve(process.cwd(), path || ''),
             port = program.port || defValue.port,
-            homepage = program.homepage || defValue.homepage,
+            homepage = program.main || defValue.homepage,
+            isWatching = program.watch || defValue.isWatching,
             options = {
                 port: port,
                 homepage: homepage
+            },
+            svh = null;
+
+        // main process
+        if (isWatching !== 'false') {
+
+            watcherOptions = {
+                ignoreDotFiles: true
             };
-        nsh.server(path, options, function () {
-            outputMessage('node will serve you at http://localhost:' + port);
-        })
+
+            watcher.watchTree(path, watcherOptions, function () {
+                if (svh !== null) {
+                    console.log('[info] closing server...');
+                    svh.close();
+
+                    console.log('[info] '+new Date()+' starting server...');
+                    svh = app.server(path, options, function () {
+                        outputMessage('node will serve you at http://localhost:' + port);
+                    });
+                } else {
+                    console.log('[info] '+new Date()+' starting server...');
+
+                    svh = app.server(path, options, function () {
+                        outputMessage('node will serve you at http://localhost:' + port);
+                    });
+                }
+            });
+        } else {
+            svh = app.server(path, options, function () {
+                outputMessage('node will serve you at http://localhost:' + port);
+            });
+        }
     });
 
 program.parse(process.argv);
