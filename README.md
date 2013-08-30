@@ -25,12 +25,20 @@ or customize port with `-p` option
 $ svh serve -p 3003 your_project_dir
 ```
 
-nsh will pickup `index.html` file by default. You can customize it with `-i` option.
+nsh will pickup `index.html` file by default. You can customize it with `-m` option.
 For example to pickup `main.html` as startup page type this command
 
 ```
-$ svh serve -i main  your_project_dir
+$ svh serve -m main  your_project_dir
 ```
+
+svh will watch project directory and auto restart it if there is any file changes.
+To disable auto watch use `-w` option
+
+```
+$ svh server -w false your_project_dir
+```
+
 
 
 That's it!
