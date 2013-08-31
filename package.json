@@ -2,7 +2,7 @@
   "name": "svh",
   "version": "0.0.1",
   "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
-  "description": "svh is a simple (file) server for html-javascript web client app development",
+  "description": "Simple (file) server for html-javascript web client app development",
   "main": "./lib/core.js",
   "scripts": {
     "test": "echo \"ASAP! :)\" && exit 1"
