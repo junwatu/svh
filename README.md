@@ -13,7 +13,7 @@ Usage
 Install svh via the awesome npm
 
 ```
-$ npm install svh
+$ sudo npm install -g svh
 ```
 
 help
