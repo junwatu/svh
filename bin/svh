@@ -41,6 +41,9 @@ program
     .option('-m, --main <homepage>', 'main page to render (fill without file extension, support html only).')
     .option('-w, --watch <isWatching>', 'watch project root directory for file changes.')
     .action(function (path, program) {
+
+        path === '.'? path=rootPath.resolve('.'):path;
+
         var projectPath = rootPath.resolve(process.cwd(), path || ''),
             port = program.port || defValue.port,
             homepage = program.main || defValue.homepage,
