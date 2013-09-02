@@ -3,8 +3,12 @@ SVH (Node Serve Here)
 
 Simple file server for web client app development.
 
-Svh will serve html, js, css or image files. It work more less like static file server but
-it has auto restart feature for file changes.
+Svh will serve html, js, css, image (any file actually except for dotfiles).
+It work more less like static file server but it has auto restart feature for file changes.
+
+####NOTE
+
+Tested only on UNIX/Linux based OS.
 
 
 Usage
