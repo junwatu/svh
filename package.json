@@ -20,5 +20,17 @@
   "bin":{
       "svh":"./bin/svh"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+      "process",
+      "reload",
+      "watch",
+      "development",
+      "restart",
+      "server",
+      "monitor",
+      "auto",
+      "static",
+      "nodemon"
+  ]
 }
