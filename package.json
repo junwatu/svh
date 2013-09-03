@@ -1,36 +1,38 @@
 {
-  "name": "svh",
-  "version": "0.0.2",
-  "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
-  "description": "Simple (file) server for html-javascript web client app development",
-  "main": "./lib/core.js",
-  "scripts": {
-    "test": "echo \"ASAP! :)\" && exit 1"
-  },
-  "dependencies":{
-    "commander":"2.0.x",
-    "express":"3.0.x",
-    "watch":"0.8.x",
-    "chalk":"0.2.x"
-  },
-  "repository":{
-      "type":"git",
-      "url":"http://github.com/junwatu/svh.git"
-  },
-  "bin":{
-      "svh":"./bin/svh"
-  },
-  "license": "MIT",
-  "keywords": [
-      "process",
-      "reload",
-      "watch",
-      "development",
-      "restart",
-      "server",
-      "monitor",
-      "auto",
-      "static",
-      "nodemon"
-  ]
+    "name": "svh",
+    "version": "0.0.2",
+    "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
+    "description": "Simple (file) server for html-javascript web client app development",
+    "keywords": [
+        "process",
+        "reload",
+        "watch",
+        "development",
+        "restart",
+        "server",
+        "monitor",
+        "auto",
+        "static",
+        "nodemon"
+    ],
+    "homepage": "https://github.com/junwatu/svh",
+    "bugs": "https://github.com/junwatu/svh/issues",
+    "main": "./lib/core.js",
+    "scripts": {
+        "test": "echo \"ASAP! :)\" && exit 1"
+    },
+    "dependencies": {
+        "commander": "2.0.x",
+        "express": "3.0.x",
+        "watch": "0.8.x",
+        "chalk": "0.2.x"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/junwatu/svh.git"
+    },
+    "bin": {
+        "svh": "./bin/svh"
+    },
+    "license": "MIT"
 }
