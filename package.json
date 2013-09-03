@@ -1,6 +1,6 @@
 {
   "name": "svh",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
   "description": "Simple (file) server for html-javascript web client app development",
   "main": "./lib/core.js",
