@@ -10,7 +10,8 @@ var program = require('commander'),
     defValue = {
         port: 3113,
         homepage: 'index',
-        isWatching: true
+        isWatching: true,
+        reload: 'no'
     },
     outputMessage = function (msg) {
 
@@ -37,7 +38,7 @@ program
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
-    .option('-p,--port <port>', 'startServer port, default to 3113')
+    .option('-p, --port <port>', 'startServer port, default to 3113')
     .option('-m, --main <homepage>', 'main page to render (fill without file extension, support html only).')
     .option('-w, --watch <isWatching>', 'watch project root directory for file changes.')
     .action(function (path, program) {
@@ -50,13 +51,14 @@ program
             isWatching = program.watch || defValue.isWatching,
             options = {
                 port: port,
-                homepage: homepage
+                homepage: homepage,
+                reload: defValue.reload,
+                reloadid: defValue.reloadid
             },
             svh = null;
 
         // main process
         if (isWatching !== 'false') {
-
             watcherOptions = {
                 ignoreDotFiles: true
             };
@@ -66,12 +68,17 @@ program
                     console.log('[info] closing server...');
                     svh.close();
 
+                    options["reload"] = "yes";
                     console.log('[info] ' + new Date() + ' starting server...');
                     svh = app.server(path, options, callback_server(options.port));
+                    app.setReload(1);
+
                 } else {
                     console.log('[info] ' + new Date() + ' starting server...');
 
+                    options["reload"] = "no";
                     svh = app.server(path, options, callback_server(options.port));
+                    app.setReload(0);
                 }
             });
         } else {
