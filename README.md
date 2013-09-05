@@ -2,9 +2,16 @@ SVH (Node Serve Here)
 =====================
 
 Simple file server for web client app development.
+It will serve html, js, css, image (any files actually except for dotfiles).
 
-Svh will serve html, js, css, image (any file actually except for dotfiles).
-It work more less like static file server but it has auto restart feature for file changes.
+
+Features
+-------
+
+- Configurable via cli options.
+- Auto watch files.
+- Auto reload browser (from v0.0.3).
+
 
 ####NOTE
 
@@ -55,7 +62,7 @@ For example to pickup `main.html` as startup page, type this command
 $ svh serve -m main  your_project_dir
 ```
 
-svh will watch project directory and auto restart it if there are any files changes.
+svh will watch project directory and auto reload browser it if there are any files changes.
 To disable auto watch use `-w` option
 
 ```
