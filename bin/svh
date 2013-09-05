@@ -11,7 +11,8 @@ var program = require('commander'),
         port: 3113,
         homepage: 'index',
         isWatching: true,
-        reload: 'no'
+        reload: 'no',
+        log: false
     },
     outputMessage = function (msg) {
 
@@ -38,9 +39,10 @@ program
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
-    .option('-p, --port <port>', 'startServer port, default to 3113')
-    .option('-m, --main <homepage>', 'main page to render (fill without file extension, support html only).')
-    .option('-w, --watch <isWatching>', 'watch project root directory for file changes.')
+    .option('-l, --log <log>', 'default is false')
+    .option('-p, --port <port>', 'startServer port. default port is 3113')
+    .option('-m, --main <homepage>', 'main page to render, fill without file extension. support html only')
+    .option('-w, --watch <isWatching>', 'watch project root directory for file changes')
     .action(function (path, program) {
 
         path === '.'? path=rootPath.resolve('.'):path;
@@ -49,14 +51,16 @@ program
             port = program.port || defValue.port,
             homepage = program.main || defValue.homepage,
             isWatching = program.watch || defValue.isWatching,
+            log = program.log || defValue.log,
             options = {
                 port: port,
                 homepage: homepage,
                 reload: defValue.reload,
-                reloadid: defValue.reloadid
+                log: log
             },
             svh = null;
 
+            console.log(log);
         // main process
         if (isWatching !== 'false') {
             watcherOptions = {
