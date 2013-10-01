@@ -60,7 +60,6 @@ program
             },
             svh = null;
 
-            console.log(log);
         // main process
         if (isWatching !== 'false') {
             watcherOptions = {
