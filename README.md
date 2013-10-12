@@ -1,6 +1,8 @@
 SVH (Node Serve Here)
 =====================
 
+[![Build Status](https://travis-ci.org/junwatu/svh.png?branch=master)](https://travis-ci.org/junwatu/svh)
+
 Simple file server for web client app development.
 It will serve html, js, css, image (any files actually except for dotfiles).
 
