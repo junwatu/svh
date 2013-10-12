@@ -1,5 +1,6 @@
 var app = require('../lib/core'),
     request = require('supertest'),
+    fspath = require('path'),
     options = {
         port: 3003,
         homepage: 'index',
@@ -7,7 +8,7 @@ var app = require('../lib/core'),
         reload: 'no',
         log: false
     },
-    path ='/home/equan/Development/Workspaces/Web/svh/examples/sample-test';
+    path =fspath.join(__dirname, '../examples/sample-test');
 
 describe('Test SVH Server', function(){
 
