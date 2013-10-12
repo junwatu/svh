@@ -1,6 +1,6 @@
 {
     "name": "svh",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
     "description": "Simple (file) server for html-javascript web client app development",
     "keywords": [
@@ -19,7 +19,7 @@
     "bugs": "https://github.com/junwatu/svh/issues",
     "main": "./lib/core.js",
     "scripts": {
-        "test": "echo \"ASAP! :)\" && exit 1"
+        "test": "./node_modules/mocha/bin/mocha"
     },
     "dependencies": {
         "commander": "2.0.x",
@@ -28,6 +28,10 @@
         "chalk": "0.2.x",
         "cheerio":"0.12.x",
         "concat-stream":"1.0.x"
+    },
+    "devDependencies":{
+        "mocha":"1.13.x",
+        "supertest":"0.8.x"
     },
     "repository": {
         "type": "git",
