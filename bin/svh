@@ -3,65 +3,70 @@
 var program = require('commander'),
     app = require('../'),
     rootPath = require('path'),
-    chalk = require('chalk'),
-    pkg = require('../package.json'),
+    message = require('../lib/middleware/message'),
     watcher = require('watch'),
-    v = pkg.version,
+    ngrok = require('../lib/ngrok'),
     defValue = {
         port: 3113,
         homepage: 'index',
-        isWatching: true,
+        isWatching: 'yes',
         reload: 'no',
-        log: false
-    },
-    outputMessage = function (msg) {
-
-        console.log(chalk.red.bold("       _______      ___    _"));
-        console.log(chalk.red.bold("      / ____\\ \\    / | |  | |"));
-        console.log(chalk.green.bold("     | (___  \\ \\  / /| |__| |"));
-        console.log(chalk.green.bold("      \\___ \\  \\ \\/ / |  __  |"));
-        console.log(chalk.blue.bold("      ____) |  \\  /  | |  | |"));
-        console.log(chalk.blue.bold("     |_____/    \\/   |_|  |_|"));
-        console.log("");
-        console.log(chalk.white.bold("             Node Serve Here"));
-        console.log(chalk.white.bold("                     v ") + chalk.white(v));
-
-        if (msg) {
-            console.log("");
-            console.log(msg);
-            console.log("")
-        }
+        log: 'no',
+        ngrok: 'no'
     };
 
 program
-    .version(v);
+    .version(message.v());
 
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here! :D')
-    .option('-l, --log <log>', 'default is false')
+    .option('-l, --log <log>', 'default is no')
     .option('-p, --port <port>', 'startServer port. default port is 3113')
-    .option('-m, --main <homepage>', 'main page to render, fill without file extension. support html only')
-    .option('-w, --watch <isWatching>', 'watch project root directory for file changes')
+    .option('-m, --main <homepage>', 'main page to render. fill without file extension. support html only')
+    .option('-w, --watch <isWatching>', 'watch project root directory for file changes. default yes')
+    .option('-n, --ngrok <ngrok>', 'using ngrok to expose local web server to internet. default no')
+    .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
+    .option('-a, --auth <auth>', 'simple auth for ngrok')
     .action(function (path, program) {
 
-        path === '.'? path=rootPath.resolve('.'):path;
+        path === '.' ? path = rootPath.resolve('.') : path;
 
-        var projectPath = rootPath.resolve(process.cwd(), path || ''),
-            port = program.port || defValue.port,
-            homepage = program.main || defValue.homepage,
-            isWatching = program.watch || defValue.isWatching,
-            log = program.log || defValue.log,
-            options = {
+        var projectPath = rootPath.resolve(process.cwd(), path || '')
+            , port = program.port || defValue.port
+            , homepage = program.main || defValue.homepage
+            , isWatching = program.watch || defValue.isWatching
+            , log = program.log || defValue.log
+            , useNgrok = program.ngrok || defValue.ngrok
+            , subdomain = program.subdomain || null
+            , auth = program.auth || ''
+            , options = {
                 port: port,
                 homepage: homepage,
                 reload: defValue.reload,
                 log: log
-            },
-            svh = null;
+            }
+            , svh = null
+            , ngrokOptions;
+
+        //show the head art
+        message.head();
+
+        if (useNgrok === 'yes') {
+
+            ngrokOptions = {
+                'port': port,
+                'subdomain': subdomain,
+                'auth': auth,
+                'configdir': projectPath
+            };
+
+            ngrok.expose(ngrokOptions);
+        }
+
 
         // main process
-        if (isWatching !== 'false') {
+        if (isWatching !== 'no') {
             watcherOptions = {
                 ignoreDotFiles: true
             };
@@ -92,5 +97,5 @@ program
 program.parse(process.argv);
 
 var callback_server = function (port) {
-    outputMessage('node will serve you at http://localhost:' + port);
+    message.output('node will serve you at http://localhost:' + port);
 };
