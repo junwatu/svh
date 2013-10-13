@@ -12,7 +12,8 @@ var program = require('commander'),
         isWatching: 'yes',
         reload: 'no',
         log: 'no',
-        ngrok: 'no'
+        ngrok: 'no',
+        ngrokpath: '/usr/bin/ngrok'
     };
 
 program
@@ -26,6 +27,7 @@ program
     .option('-m, --main <homepage>', 'main page to render. fill without file extension. support html only')
     .option('-w, --watch <isWatching>', 'watch project root directory for file changes. default yes')
     .option('-n, --ngrok <ngrok>', 'using ngrok to expose local web server to internet. default no')
+    .option('-N, --ngrok-path <ngrokpath>', 'ngrok binary path. default to /usr/bin/path')
     .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
     .option('-a, --auth <auth>', 'simple auth for ngrok')
     .action(function (path, program) {
@@ -38,6 +40,7 @@ program
             , isWatching = program.watch || defValue.isWatching
             , log = program.log || defValue.log
             , useNgrok = program.ngrok || defValue.ngrok
+            , ngrokPath = program.ngrokpath || defValue.ngrokpath
             , subdomain = program.subdomain || null
             , auth = program.auth || ''
             , options = {
@@ -55,6 +58,7 @@ program
         if (useNgrok === 'yes') {
 
             ngrokOptions = {
+                'ngrokpath':ngrokPath,
                 'port': port,
                 'subdomain': subdomain,
                 'auth': auth,
