@@ -1,44 +1,46 @@
 {
-    "name": "svh",
-    "version": "0.0.5",
-    "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
-    "description": "Simple (file) server for html-javascript web client app development",
-    "keywords": [
-        "process",
-        "reload",
-        "watch",
-        "development",
-        "restart",
-        "server",
-        "monitor",
-        "auto",
-        "static",
-        "nodemon"
-    ],
-    "homepage": "https://github.com/junwatu/svh",
-    "bugs": "https://github.com/junwatu/svh/issues",
-    "main": "./lib/core.js",
-    "scripts": {
-        "test": "./node_modules/mocha/bin/mocha"
-    },
-    "dependencies": {
-        "commander": "2.0.x",
-        "express": "3.0.x",
-        "watch": "0.8.x",
-        "chalk": "0.2.x",
-        "cheerio":"0.12.x",
-        "concat-stream":"1.0.x"
-    },
-    "devDependencies":{
-        "mocha":"1.13.x",
-        "supertest":"0.8.x"
-    },
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/junwatu/svh.git"
-    },
-    "bin": {
-        "svh": "./bin/svh"
-    },
-    "license": "MIT"
+  "name": "svh",
+  "version": "0.0.6beta",
+  "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
+  "description": "Simple (file) server for html-javascript web client app development",
+  "keywords": [
+    "process",
+    "reload",
+    "watch",
+    "development",
+    "restart",
+    "server",
+    "monitor",
+    "auto",
+    "static",
+    "nodemon"
+  ],
+  "homepage": "https://github.com/junwatu/svh",
+  "bugs": "https://github.com/junwatu/svh/issues",
+  "main": "./lib/core.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "dependencies": {
+    "commander": "2.0.x",
+    "express": "3.0.x",
+    "watch": "0.8.x",
+    "chalk": "0.2.x",
+    "cheerio": "0.12.x",
+    "concat-stream": "1.0.x",
+    "wordgenerator": "0.0.1",
+    "async": "~0.2.9"
+  },
+  "devDependencies": {
+    "mocha": "1.13.x",
+    "supertest": "0.8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/junwatu/svh.git"
+  },
+  "bin": {
+    "svh": "./bin/svh"
+  },
+  "license": "MIT"
 }
