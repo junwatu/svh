@@ -13,11 +13,12 @@ Features
 - Configurable via cli options.
 - Auto watch files.
 - Auto reload browser (from v0.0.3).
+- Ngrok support (from v0.0.6).
 
 
-####NOTE
+###Note
 
-Tested only on UNIX/Linux based OS.
+> Tested only on UNIX/Linux based OS.
 
 
 Usage
@@ -38,10 +39,15 @@ Usage: serve [options] [path]
 
   Options:
 
-    -h, --help                output usage information
-    -p,--port <port>          startServer port, default to 3113
-    -m, --main <homepage>     main page to render (fill without file extension, support html only).
-    -w, --watch <isWatching>  watch project root directory for file changes.
+    -h, --help                    output usage information
+    -l, --log <log>               default is no
+    -p, --port <port>             startServer port. default port is 3113
+    -m, --main <homepage>         main page to render. fill without file extension. support html only
+    -w, --watch <isWatching>      watch project root directory for file changes. default yes
+    -n, --ngrok <ngrok>           using ngrok to expose local web server to internet. default no
+    -N, --ngrok-path <ngrokpath>  ngrok binary path. default to /usr/bin/ngrok
+    -s, --subdomain <subdomain>   subdomain for ngrok
+    -a, --auth <auth>             simple auth for ngrok
 
 ```
 
@@ -68,11 +74,60 @@ svh will watch project directory and auto reload browser it if there are any fil
 To disable auto watch use `-w` option
 
 ```
-$ svh server -w false your_project_dir
+$ svh serve -w false your_project_dir
+```
+###Use with ngrok
+
+svh `v0.0.6` will support [ngrok][1] it's awesome tool by the way, but make sure that it already installed in your system. The default path svh will recognize it is
+
+```
+/usr/bin/ngrok
+```
+other than that, you should pass ngrok path via `-N` option.
+
+To use ngrok use command option `-n` and svh will create random subdomain for your project.
+
+For example to expose `your_project_dir` to public internet just type this command
+
+```
+$ svh serve -n yes your_project_dir
+
 ```
 
+To expose your local project to public internet but with basic authentication just type this command
 
-That's it!
+```
+$ svh serve -n yes -a user:password project_dir
+```
+You can pass custom subdomain name to via `-s` option. For example if you type this command
+
+```
+$ svh serve -n yes -a shoot:angel -s cross-finger your_project_dir
+```
+then you can access your local project on address
+
+```
+http://cross-finger.ngrok.com
+```
+
+If ngrok installed on custom path use `-N` option so svh will recognize it.
+
+```
+$ svh serve -n yes -N /home/angel/bin/ngrok -a shoot:angel project_dir
+```
+
+> svh currently doesn't support for ngrok configuration file
+
+Contribute
+----------
+
+Please feel free to fork it and pull any request
+
+
+----------
+
+
+Thank's
 
 
 LICENSE
@@ -94,3 +149,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
 OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
 OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+  [1]: https://ngrok.com/
