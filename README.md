@@ -16,7 +16,7 @@ Features
 - Ngrok support (from v0.0.6).
 
 
-###Note
+> NOTE:
 
 > Tested only on UNIX/Linux based OS.
 
@@ -42,7 +42,7 @@ Usage: serve [options] [path]
     -h, --help                    output usage information
     -l, --log <log>               default is no
     -p, --port <port>             startServer port. default port is 3113
-    -m, --main <homepage>         main page to render. fill without file extension. support html only
+    -m, --main <homepage>         main page. fill without file extension. support html only
     -w, --watch <isWatching>      watch project root directory for file changes. default yes
     -n, --ngrok <ngrok>           using ngrok to expose local web server to internet. default no
     -N, --ngrok-path <ngrokpath>  ngrok binary path. default to /usr/bin/ngrok
@@ -99,7 +99,7 @@ To expose your local project to public internet but with basic authentication ju
 ```
 $ svh serve -n yes -a user:password project_dir
 ```
-You can pass custom subdomain name to via `-s` option. For example if you type this command
+You can pass custom subdomain name via `-s` option. For example if you type this command
 
 ```
 $ svh serve -n yes -a shoot:angel -s cross-finger your_project_dir
@@ -116,12 +116,14 @@ If ngrok installed on custom path use `-N` option so svh will recognize it.
 $ svh serve -n yes -N /home/angel/bin/ngrok -a shoot:angel project_dir
 ```
 
+> NOTE:
+
 > svh currently doesn't support for ngrok configuration file
 
 Contribute
 ----------
 
-Please feel free to fork it and pull any request
+Please feel free to fork and pull any request
 
 
 ----------
