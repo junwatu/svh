@@ -1,6 +1,6 @@
 {
   "name": "svh",
-  "version": "0.0.6-beta",
+  "version": "0.0.6",
   "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
   "description": "Simple (file) server for html-javascript web client app development",
   "keywords": [
