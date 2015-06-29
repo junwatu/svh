@@ -1,27 +1,28 @@
 #!/usr/bin/env node
+'use strict';
 
-var program = require('commander'),
-    app = require('../'),
-    rootPath = require('path'),
-    message = require('../lib/middleware/message'),
-    watcher = require('watch'),
-    ngrok = require('../lib/ngrok'),
-    defValue = {
-        port: 3113,
-        homepage: 'index',
-        isWatching: 'yes',
-        reload: 'no',
-        log: 'no',
-        ngrok: 'no',
-        ngrokpath: '/usr/bin/ngrok'
-    };
+var program = require('commander');
+var app = require('../');
+var rootPath = require('path');
+var message = require('../lib/middleware/message');
+var watcher = require('watch');
+var ngrok = require('../lib/ngrok');
+var defValue = {
+    port: 3113,
+    homepage: 'index',
+    isWatching: 'yes',
+    reload: 'no',
+    log: 'no',
+    ngrok: 'no',
+    ngrokpath: '/usr/bin/ngrok'
+};
 
 program
     .version(message.v());
 
 program
     .command('serve [path]')
-    .description('\tRun Node Serve Here! :D')
+    .description('\tRun Node Serve Here')
     .option('-l, --log <log>', 'default is no')
     .option('-p, --port <port>', 'startServer port. default port is 3113')
     .option('-m, --main <homepage>', 'main page to render. fill without file extension. support html only')
@@ -34,26 +35,25 @@ program
 
         path === '.' ? path = rootPath.resolve('.') : path;
 
-        var projectPath = rootPath.resolve(process.cwd(), path || '')
-            , port = program.port || defValue.port
-            , homepage = program.main || defValue.homepage
-            , isWatching = program.watch || defValue.isWatching
-            , log = program.log || defValue.log
-            , useNgrok = program.ngrok || defValue.ngrok
-            , ngrokPath = program.ngrokpath || defValue.ngrokpath
-            , subdomain = program.subdomain || null
-            , auth = program.auth || ''
-            , options = {
+        var projectPath = rootPath.resolve(process.cwd(), path || '');
+        var port = program.port || defValue.port;
+        var homepage = program.main || defValue.homepage;
+        var isWatching = program.watch || defValue.isWatching;
+        var log = program.log || defValue.log;
+        var useNgrok = program.ngrok || defValue.ngrok;
+        var ngrokPath = program.ngrokpath || defValue.ngrokpath;
+        var subdomain = program.subdomain || null;
+        var auth = program.auth || '';
+        var options = {
                 port: port,
                 homepage: homepage,
                 reload: defValue.reload,
                 log: log
             }
-            , svh = null
-            , ngrokOptions;
+        var svh = null;
+        var ngrokOptions;
 
-        //show the head art
-        message.head();
+        message.version();
 
         if (useNgrok === 'yes') {
 
@@ -71,7 +71,7 @@ program
 
         // main process
         if (isWatching !== 'no') {
-            watcherOptions = {
+            var watcherOptions = {
                 ignoreDotFiles: true
             };
 
@@ -101,5 +101,5 @@ program
 program.parse(process.argv);
 
 var callback_server = function (port) {
-    message.output('node will serve you at http://localhost:' + port);
+    console.log('node will serve you at http://localhost:' + port);
 };
