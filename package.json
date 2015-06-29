@@ -4,16 +4,16 @@
   "author": "Equan Pr. <eq@junwatu.com> (http://www.junwatu.com)",
   "description": "Simple (file) server for html-javascript web client app development",
   "keywords": [
+    "auto",
+    "development",
+    "monitor",
+    "nodemon",
     "process",
     "reload",
-    "watch",
-    "development",
     "restart",
     "server",
-    "monitor",
-    "auto",
     "static",
-    "nodemon"
+    "watch"
   ],
   "homepage": "https://github.com/junwatu/svh",
   "bugs": "https://github.com/junwatu/svh/issues",
@@ -22,13 +22,14 @@
     "test": "./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
-    "commander": "2.0.x",
-    "express": "3.0.x",
-    "watch": "0.8.x",
+    "async": "~0.2.9",
     "chalk": "0.2.x",
     "cheerio": "0.12.x",
+    "commander": "2.0.x",
     "concat-stream": "1.0.x",
-    "async": "~0.2.9"
+    "express": "3.0.x",
+    "request": "^2.58.0",
+    "watch": "0.8.x"
   },
   "devDependencies": {
     "mocha": "1.13.x",
