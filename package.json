@@ -28,7 +28,6 @@
     "chalk": "0.2.x",
     "cheerio": "0.12.x",
     "concat-stream": "1.0.x",
-    "wordgenerator": "0.0.1",
     "async": "~0.2.9"
   },
   "devDependencies": {
