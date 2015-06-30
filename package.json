@@ -2,7 +2,7 @@
   "name": "svh",
   "version": "0.0.7-beta",
   "author": "Equan Pr. <byte@equan.me> (http://equan.me)",
-  "description": "Simple (file) server for html-javascript web client app development",
+  "description": "Simple (file) server for front-end app development",
   "keywords": [
     "auto",
     "development",
@@ -19,7 +19,9 @@
   "bugs": "https://github.com/junwatu/svh/issues",
   "main": "./lib/core.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "build": "npm run buildjs",
+    "buildjs": "uglifyjs ./lib/client/svh.js -o ./lib/client/svh.min.js",
+    "test": "mocha"
   },
   "dependencies": {
     "async": "~0.2.9",
@@ -33,7 +35,8 @@
   },
   "devDependencies": {
     "mocha": "1.13.x",
-    "supertest": "0.8.x"
+    "supertest": "0.8.x",
+    "uglify-js": "^2.4.23"  
   },
   "repository": {
     "type": "git",
