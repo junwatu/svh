@@ -15,24 +15,18 @@ body {
 }
 .humane,
 .humane-libnotify {
-  /**font-family: Ubuntu, Arial, sans-serif;*/
+  font-family: Arial, sans-serif;
   text-align: center;
   font-size: 15px;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   opacity: 0;
   width: 150px;
   color: #fff;
   padding: 10px;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0,0,0,0.9)), color-stop(1, rgba(50,50,50,0.9))) no-repeat;
-  background: -moz-linear-gradient(top, rgba(0,0,0,0.9) 0%, rgba(50,50,50,0.9) 100%) no-repeat;
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0.9) 0%, rgba(50,50,50,0.9) 100%) no-repeat;
-  background: -ms-linear-gradient(top, rgba(0,0,0,0.9) 0%, rgba(50,50,50,0.9) 100%) no-repeat;
-  background: -o-linear-gradient(top, rgba(0,0,0,0.9) 0%, rgba(50,50,50,0.9) 100%) no-repeat;
-  background: linear-gradient(top, rgba(0,0,0,0.9) 0%, rgba(50,50,50,0.9) 100%) no-repeat;
-  *background-color: #000;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  background-color: #000;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 4px -4px #000;
   box-shadow: 0 4px 4px -4px #000;
   -moz-transform: translateY(-40px);
