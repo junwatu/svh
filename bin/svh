@@ -11,7 +11,6 @@ var defValue = {
     port: 3113,
     homepage: 'index',
     isWatching: true,
-    reload: 'no',
     log: false,
     ngrok: false,
     ngrokpath: '/usr/bin/ngrok'
@@ -47,7 +46,6 @@ program
         var options = {
                 port: port,
                 homepage: homepage,
-                reload: defValue.reload,
                 log: log
             }
         var svh = null;
@@ -75,18 +73,14 @@ program
                 if (svh !== null) {
                     console.log('closing server...');
                     svh.close();
-
-                    options["reload"] = "yes";
                     console.log('[' + new Date() + '] starting server...');
                     svh = app.server(path, options, callback_server(options.port));
-                    app.setReload(1);
+                    app.setReload(true);
 
                 } else {
                     console.log('[' + new Date() + '] starting server...');
-
-                    options["reload"] = "no";
                     svh = app.server(path, options, callback_server(options.port));
-                    app.setReload(0);
+                    app.setReload(false);
                 }
             });
         } else {
