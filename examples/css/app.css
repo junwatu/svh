@@ -1,3 +1,7 @@
 body {
-    margin: 30px auto;
+    margin: 30px 30px;
+}
+
+header {
+    padding: 10px 0px;
 }
