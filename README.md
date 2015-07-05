@@ -4,7 +4,7 @@ SVH (Node Serve Here)
 [![Build Status](https://travis-ci.org/junwatu/svh.png?branch=master)](https://travis-ci.org/junwatu/svh)
 
 Simple file server for web client app development.
-It will serve html, js, css, image (any files actually except for dotfiles).
+It will serve html, js, css, image and it's configurable via cli option except for dotfiles.
 
 
 Features
@@ -13,7 +13,8 @@ Features
 - Configurable via cli options.
 - Auto watch files.
 - Auto reload browser.
-- Publis site support through ngrok.
+- Publish site support through ngrok.
+- Files filter.
 
 
 > NOTE:
@@ -38,16 +39,18 @@ $ svh serve --help
 Usage: serve [options] [path]
 
   Options:
-
+    
     -h, --help                    output usage information
-    -l, --log                     default is no
+    -l, --log                     default is disabled
     -p, --port <port>             startServer port. default port is 3113
     -m, --main <homepage>         index file to start. no extension (html only)
-    -w, --watch                   watch project root directory for file changes. default yes
-    -n, --ngrok <ngrok>           using ngrok to expose local web server to internet. default no
-    -N, --ngrok-path <ngrokpath>  ngrok binary path. default to /usr/bin/ngrok
-    -s, --subdomain <subdomain>   subdomain for ngrok (for ngrok paid service only)
+    -w, --watch                   watch project root directory for file changes. default is enabled
+    -f, --files <files>           comma separated files extension to watch. default is all file types.
+    -n, --ngrok                   using ngrok to expose local web server to internet. default is disabled
+    -N, --ngrok-path <ngrokpath>  ngrok binary path. default path to /usr/bin/ngrok
+    -s, --subdomain <subdomain>   subdomain for ngrok
     -a, --auth <auth>             simple auth for ngrok
+
 
 ```
 
@@ -78,7 +81,7 @@ $ svh serve -w your_project_dir
 ```
 ###Use with ngrok
 
-svh from `v0.0.6` will support [ngrok][1] it's awesome tool by the way, but make sure that it already installed in your system. The default path svh will recognize it is
+svh support to expose your project to publis site via [ngrok][1], it's awesome tool by the way but make sure that it's already installed in your system. The default path is
 
 ```
 /usr/bin/ngrok
@@ -119,6 +122,15 @@ $ svh serve -n -N /home/angel/bin/ngrok -a shoot:angel project_dir
 > NOTE:
 
 > svh currently doesn't support for ngrok configuration file
+
+###Filter
+
+From version 0.0.7 you can use files filter through comma separated extension list by add `--files` command option 
+
+    $ svh serve --files=html,css,js,jsx your_project_dir
+    
+by default svh will ignore `node_modules` directory.
+
 
 Contribute
 ----------
