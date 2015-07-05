@@ -23,7 +23,6 @@ var files = [];
 
 program
     .version(message.v());
-
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here')
@@ -37,6 +36,10 @@ program
     .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
     .option('-a, --auth <auth>', 'simple auth for ngrok')
     .action(function (path, program) {
+       
+        if (!process.argv.slice(3).length) {
+            program.help();
+        }
 
         path === '.' ? path = rootPath.resolve('.') : path;
 
@@ -152,6 +155,14 @@ program
     });
 
 program.parse(process.argv);
+
+if(!process.argv.slice(2).length) {
+    program.help();
+} else {
+    if(process.argv.slice(2)[0] !== 'serve') { 
+        program.help();
+    } 
+}
 
 var callback_server = function (port) {
     console.log('node will serve you at http://localhost:' + port);
