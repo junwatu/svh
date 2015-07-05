@@ -1,6 +1,6 @@
 {
   "name": "svh",
-  "version": "0.0.7-beta",
+  "version": "0.0.7",
   "author": "Equan Pr. <byte@equan.me> (http://equan.me)",
   "description": "Simple (file) server for front-end app development",
   "keywords": [
