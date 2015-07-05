@@ -30,6 +30,7 @@
     "commander": "2.0.x",
     "concat-stream": "1.0.x",
     "express": "3.0.x",
+    "random-words": "0.0.1",
     "request": "~2.58.0",
     "serve-favicon": "^2.3.0",
     "watch": "0.8.x"
