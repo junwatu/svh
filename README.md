@@ -42,6 +42,7 @@ Usage: serve [options] [path]
     
     -h, --help                    output usage information
     -l, --log                     default is disabled
+    -h, --host <hostname>         hostname. default to localhost
     -p, --port <port>             startServer port. default port is 3113
     -m, --main <homepage>         index file to start. no extension (html only)
     -w, --watch                   watch project root directory for file changes. default is enabled
