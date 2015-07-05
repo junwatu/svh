@@ -11,6 +11,7 @@ var pathNode = require('path');
 var fs = require('fs');
 var chalk = require('chalk');
 var defValue = {
+    hostname: 'localhost',
     port: 3113,
     homepage: 'index',
     isWatching: true,
@@ -28,6 +29,7 @@ program
     .command('serve [path]')
     .description('\tRun Node Serve Here')
     .option('-l, --log', 'default is disabled')
+    .option('-h, --host <hostname>','hostname. default to localhost')
     .option('-p, --port <port>', 'startServer port. default port is 3113')
     .option('-m, --main <homepage>', 'index file to start. no extension (html only)')
     .option('-w, --watch', 'watch project root directory for file changes. default is enabled')
@@ -45,6 +47,7 @@ program
         path === '.' ? path = rootPath.resolve('.') : path;
 
         var projectPath = rootPath.resolve(process.cwd(), path || '');
+        var host = program.host || defValue.hostname;
         var port = program.port || defValue.port;
         var homepage = program.main || defValue.homepage;
         var isWatching = program.watch || defValue.isWatching;
@@ -55,6 +58,7 @@ program
         var auth = program.auth || '';
         var filter = program.files || defValue.files;
         var options = {
+            hostname: host,
             port: port,
             homepage: homepage,
             log: log
@@ -64,7 +68,7 @@ program
         var validFileChanged = false;
 
         message.version();
-
+        
         if (useNgrok) {
             ngrokOptions = {
                 'ngrokpath':ngrokPath,
@@ -149,17 +153,17 @@ program
                         console.log('closing server...');
                         svh.close();
                         console.log('[' + new Date() + '] starting server...');
-                        svh = app.server(path, options, callback_server(options.port));
+                        svh = app.server(path, options, callback_server(options));
                         app.setReload(true);
                     } else {
                         console.log('[' + new Date() + '] starting server...');
-                        svh = app.server(path, options, callback_server(options.port));
+                        svh = app.server(path, options, callback_server(options));
                         app.setReload(false);
                     }    
                 }
             });
         } else {
-            svh = app.server(path, options, callback_server(options.port));
+            svh = app.server(path, options, callback_server(options));
         }
     });
 
@@ -173,8 +177,8 @@ if(!process.argv.slice(2).length) {
     } 
 }
 
-var callback_server = function (port) {
-    console.log('node will serve you at http://localhost:' + port);
+var callback_server = function (options) {
+    console.log('node will serve you at http://'+options.hostname+':' + options.port);
 };
 
 var filesToWatch = function(f, stat, filter) {
