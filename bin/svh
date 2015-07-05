@@ -104,8 +104,12 @@ program
                             // save file path to files to watch if ext is on filter
                             if(extNewFile.length > 1) {
                                 var extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
-                                if( extExistOnFilter != -1) { 
-                                    files.push(f);
+                                if( extExistOnFilter != -1) {
+                                    if(files.indexOf(f) == -1) {
+                                        files.push(f);
+                                        console.log('[Watch]');
+                                        console.log(chalk.green.bold('- ')+chalk.green.bold(f)); 
+                                    } 
                                 }
                             }                            
                         } else {
@@ -122,11 +126,14 @@ program
                                 validFileChanged = false;
                             }
                         }
+
                     } else if (curr.nlink === 0) {
                         // f was removed so should removed file from files array
                         var removedFile = files.indexOf(f);
                         if(removedFile != -1) {
                             files.splice(removedFile, 1);
+                            console.log('[Remove]');
+                            console.log(chalk.red.bold('- ')+chalk.red.bold(f)); 
                             validFileChanged = true;
                         } else {
                             validFileChanged = false;   
