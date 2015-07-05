@@ -9,6 +9,7 @@ var watcher = require('watch');
 var ngrok = require('../lib/ngrok');
 var pathNode = require('path');
 var fs = require('fs');
+var chalk = require('chalk');
 var defValue = {
     port: 3113,
     homepage: 'index',
@@ -78,8 +79,7 @@ program
         if (isWatching) {
             var watcherOptions = {
                 ignoreDotFiles: true,
-                ignoreDirectoryPattern: /node_modules/,
-                filter: filesToWatch 
+                ignoreUnreadableDir: true
             };
 
             watcher.watchTree(path, watcherOptions, function (f, curr, prev) {
@@ -87,6 +87,8 @@ program
                         validFileChanged = true;
                 } else{
                     if (typeof f == 'object' && prev === null && curr === null) {
+                        
+                        console.log('[Watch]');
                         Object.keys(f).forEach(function(name) {
                             var stat = f[name];
                             filesToWatch(name, stat, filter);
@@ -169,16 +171,20 @@ var callback_server = function (port) {
 };
 
 var filesToWatch = function(f, stat, filter) {
-    if(filter === "*") return true;
-    
-    // push files based on valid files extension to watch
-    var ext = pathNode.extname(f).split('.');
-    filter.split(',').forEach(function(value){
-        if(ext[ext.length - 1] != ''){
-            if(ext[ext.length - 1] === value) {
-                files.push(f);    
-            }
-        }    
-    })
+    var ignoreDir = [];
+    ignoreDir = f.match(/node_modules/);
+    if(!ignoreDir){
+        if(filter === "*") return true;
+        // push files based on valid files extension to watch
+        var ext = pathNode.extname(f).split('.');
+        filter.split(',').forEach(function(value){
+            if(ext[ext.length - 1] != ''){
+                if(ext[ext.length - 1] === value) {
+                    console.log(chalk.magenta.bold('- '+f));
+                    files.push(f);    
+                }
+            }    
+        })
+    }
     return true;
 }
