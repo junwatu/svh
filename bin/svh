@@ -7,14 +7,19 @@ var rootPath = require('path');
 var message = require('../lib/middleware/message');
 var watcher = require('watch');
 var ngrok = require('../lib/ngrok');
+var pathNode = require('path');
+var fs = require('fs');
 var defValue = {
     port: 3113,
     homepage: 'index',
     isWatching: true,
+    files: '*',
     log: false,
     ngrok: false,
     ngrokpath: '/usr/bin/ngrok'
 };
+
+var files = [];
 
 program
     .version(message.v());
@@ -26,6 +31,7 @@ program
     .option('-p, --port <port>', 'startServer port. default port is 3113')
     .option('-m, --main <homepage>', 'index file to start. no extension (html only)')
     .option('-w, --watch', 'watch project root directory for file changes. default is enabled')
+    .option('-f, --files <files>','comma separated files extension to watch. default is all file types.')
     .option('-n, --ngrok', 'using ngrok to expose local web server to internet. default is disabled')
     .option('-N, --ngrok-path <ngrokpath>', 'ngrok binary path. default path to /usr/bin/ngrok')
     .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
@@ -43,13 +49,15 @@ program
         var ngrokPath = program.ngrokpath || defValue.ngrokpath;
         var subdomain = program.subdomain || null;
         var auth = program.auth || '';
+        var filter = program.files || defValue.files;
         var options = {
-                port: port,
-                homepage: homepage,
-                log: log
-            }
+            port: port,
+            homepage: homepage,
+            log: log
+        }
         var svh = null;
         var ngrokOptions;
+        var validFileChanged = false;
 
         message.version();
 
@@ -66,21 +74,76 @@ program
 
         if (isWatching) {
             var watcherOptions = {
-                ignoreDotFiles: true
+                ignoreDotFiles: true,
+                ignoreDirectoryPattern: /node_modules/,
+                filter: filesToWatch 
             };
 
-            watcher.watchTree(path, watcherOptions, function () {
-                if (svh !== null) {
-                    console.log('closing server...');
-                    svh.close();
-                    console.log('[' + new Date() + '] starting server...');
-                    svh = app.server(path, options, callback_server(options.port));
-                    app.setReload(true);
+            watcher.watchTree(path, watcherOptions, function (f, curr, prev) {
+                if(filter === "*"){
+                        validFileChanged = true;
+                } else{
+                    if (typeof f == 'object' && prev === null && curr === null) {
+                        Object.keys(f).forEach(function(name) {
+                            var stat = f[name];
+                            filesToWatch(name, stat, filter);
+                        });
+                        validFileChanged = true;
+                    } else if (prev === null) {
+                        // new file
+                        var newFile = fs.statSync(f);
+                        var extNewFile = pathNode.extname(f).split('.');
 
-                } else {
-                    console.log('[' + new Date() + '] starting server...');
-                    svh = app.server(path, options, callback_server(options.port));
-                    app.setReload(false);
+                        if(newFile['size'] == 0) { 
+                            validFileChanged = false;
+                            // save file path to files to watch if ext is on filter
+                            if(extNewFile.length > 1) {
+                                var extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
+                                if( extExistOnFilter != -1) { 
+                                    files.push(f);
+                                }
+                            }                            
+                        } else {
+                            // check extension
+                            if(extNewFile.length > 1) {
+                                var extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
+                                if( extExistOnFilter != -1) { 
+                                    files.push(f);
+                                    validFileChanged = true;
+                                } else { 
+                                    validFileChanged = false;
+                                }    
+                            } else {
+                                validFileChanged = false;
+                            }
+                        }
+                    } else if (curr.nlink === 0) {
+                        // f was removed so should removed file from files array
+                        var removedFile = files.indexOf(f);
+                        if(removedFile != -1) {
+                            files.splice(removedFile, 1);
+                            validFileChanged = true;
+                        } else {
+                            validFileChanged = false;   
+                        }
+                    } else {
+                        var exist = files.indexOf(f);
+                        (exist != -1) ? validFileChanged = true : validFileChanged = false;         
+                    }
+                }
+
+                if(validFileChanged){
+                    if (svh !== null) {
+                        console.log('closing server...');
+                        svh.close();
+                        console.log('[' + new Date() + '] starting server...');
+                        svh = app.server(path, options, callback_server(options.port));
+                        app.setReload(true);
+                    } else {
+                        console.log('[' + new Date() + '] starting server...');
+                        svh = app.server(path, options, callback_server(options.port));
+                        app.setReload(false);
+                    }    
                 }
             });
         } else {
@@ -93,3 +156,18 @@ program.parse(process.argv);
 var callback_server = function (port) {
     console.log('node will serve you at http://localhost:' + port);
 };
+
+var filesToWatch = function(f, stat, filter) {
+    if(filter === "*") return true;
+    
+    // push files based on valid files extension to watch
+    var ext = pathNode.extname(f).split('.');
+    filter.split(',').forEach(function(value){
+        if(ext[ext.length - 1] != ''){
+            if(ext[ext.length - 1] === value) {
+                files.push(f);    
+            }
+        }    
+    })
+    return true;
+}
