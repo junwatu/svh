@@ -180,7 +180,7 @@ var filesToWatch = function(f, stat, filter) {
         filter.split(',').forEach(function(value){
             if(ext[ext.length - 1] != ''){
                 if(ext[ext.length - 1] === value) {
-                    console.log(chalk.magenta.bold('- '+f));
+                    console.log(chalk.green.bold('- ')+chalk.blue.bold(f));
                     files.push(f);    
                 }
             }    
