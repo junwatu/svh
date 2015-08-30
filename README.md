@@ -39,10 +39,10 @@ $ svh serve --help
 Usage: serve [options] [path]
 
   Options:
-    
+
     -h, --help                    output usage information
     -l, --log                     default is disabled
-    -h, --host <hostname>         hostname. default to localhost
+    -d, --domain <domain>         domain or hostname. default to localhost
     -p, --port <port>             startServer port. default port is 3113
     -m, --main <homepage>         index file to start. no extension (html only)
     -w, --watch                   watch project root directory for file changes. default is enabled
@@ -126,10 +126,10 @@ $ svh serve -n -N /home/angel/bin/ngrok -a shoot:angel project_dir
 
 ###Filter
 
-From version 0.0.7 you can use files filter through comma separated extension list by add `--files` command option 
+From version 0.0.7 you can use files filter through comma separated extension list by add `--files` command option
 
     $ svh serve --files=html,css,js,jsx your_project_dir
-    
+
 by default svh will ignore `node_modules` directory.
 
 
