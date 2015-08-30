@@ -29,7 +29,7 @@ program
     .command('serve [path]')
     .description('\tRun Node Serve Here')
     .option('-l, --log', 'default is disabled')
-    .option('-h, --host <hostname>','hostname. default to localhost')
+    .option('-d, --domain <domain>','domain or domain. default to localhost')
     .option('-p, --port <port>', 'startServer port. default port is 3113')
     .option('-m, --main <homepage>', 'index file to start. no extension (html only)')
     .option('-w, --watch', 'watch project root directory for file changes. default is enabled')
@@ -39,7 +39,7 @@ program
     .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
     .option('-a, --auth <auth>', 'simple auth for ngrok')
     .action(function (path, program) {
-       
+
         if (!process.argv.slice(3).length) {
             program.help();
         }
@@ -47,7 +47,7 @@ program
         path === '.' ? path = rootPath.resolve('.') : path;
 
         var projectPath = rootPath.resolve(process.cwd(), path || '');
-        var host = program.host || defValue.hostname;
+        var host = program.domain || defValue.hostname;
         var port = program.port || defValue.port;
         var homepage = program.main || defValue.homepage;
         var isWatching = program.watch || defValue.isWatching;
@@ -68,7 +68,7 @@ program
         var validFileChanged = false;
 
         message.version();
-        
+
         if (useNgrok) {
             ngrokOptions = {
                 'ngrokpath':ngrokPath,
@@ -91,7 +91,7 @@ program
                         validFileChanged = true;
                 } else{
                     if (typeof f == 'object' && prev === null && curr === null) {
-                        
+
                         console.log('[Watch]');
                         Object.keys(f).forEach(function(name) {
                             var stat = f[name];
@@ -103,7 +103,7 @@ program
                         var newFile = fs.statSync(f);
                         var extNewFile = pathNode.extname(f).split('.');
 
-                        if(newFile['size'] == 0) { 
+                        if(newFile['size'] == 0) {
                             validFileChanged = false;
                             // save file path to files to watch if ext is on filter
                             if(extNewFile.length > 1) {
@@ -112,20 +112,20 @@ program
                                     if(files.indexOf(f) == -1) {
                                         files.push(f);
                                         console.log('[Watch]');
-                                        console.log(chalk.green.bold('- ')+chalk.green.bold(f)); 
-                                    } 
+                                        console.log(chalk.green.bold('- ')+chalk.green.bold(f));
+                                    }
                                 }
-                            }                            
+                            }
                         } else {
                             // check extension
                             if(extNewFile.length > 1) {
                                 var extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
-                                if( extExistOnFilter != -1) { 
+                                if( extExistOnFilter != -1) {
                                     files.push(f);
                                     validFileChanged = true;
-                                } else { 
+                                } else {
                                     validFileChanged = false;
-                                }    
+                                }
                             } else {
                                 validFileChanged = false;
                             }
@@ -137,14 +137,14 @@ program
                         if(removedFile != -1) {
                             files.splice(removedFile, 1);
                             console.log('[Remove]');
-                            console.log(chalk.red.bold('- ')+chalk.red.bold(f)); 
+                            console.log(chalk.red.bold('- ')+chalk.red.bold(f));
                             validFileChanged = true;
                         } else {
-                            validFileChanged = false;   
+                            validFileChanged = false;
                         }
                     } else {
                         var exist = files.indexOf(f);
-                        (exist != -1) ? validFileChanged = true : validFileChanged = false;         
+                        (exist != -1) ? validFileChanged = true : validFileChanged = false;
                     }
                 }
 
@@ -159,7 +159,7 @@ program
                         console.log('[' + new Date() + '] starting server...');
                         svh = app.server(path, options, callback_server(options));
                         app.setReload(false);
-                    }    
+                    }
                 }
             });
         } else {
@@ -172,13 +172,13 @@ program.parse(process.argv);
 if(!process.argv.slice(2).length) {
     program.help();
 } else {
-    if(process.argv.slice(2)[0] !== 'serve') { 
+    if(process.argv.slice(2)[0] !== 'serve') {
         program.help();
-    } 
+    }
 }
 
 var callback_server = function (options) {
-    console.log('node will serve you at http://'+options.hostname+':' + options.port);
+    console.log('node will serve you at http://'+options.domain+':' + options.port);
 };
 
 var filesToWatch = function(f, stat, filter) {
@@ -192,9 +192,9 @@ var filesToWatch = function(f, stat, filter) {
             if(ext[ext.length - 1] != ''){
                 if(ext[ext.length - 1] === value) {
                     console.log(chalk.green.bold('- ')+chalk.blue.bold(f));
-                    files.push(f);    
+                    files.push(f);
                 }
-            }    
+            }
         })
     }
     return true;
