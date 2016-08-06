@@ -1,16 +1,18 @@
 #!/usr/bin/env node
+
 'use strict';
 
-var program = require('commander');
-var app = require('../');
-var rootPath = require('path');
-var message = require('../lib/middleware/message');
-var watcher = require('watch');
-var ngrok = require('../lib/ngrok');
-var pathNode = require('path');
-var fs = require('fs');
-var chalk = require('chalk');
-var defValue = {
+const program = require('commander');
+const app = require('../');
+const rootPath = require('path');
+const message = require('../lib/middleware/message');
+const watcher = require('watch');
+const ngrok = require('../lib/ngrok');
+const pathNode = require('path');
+const fs = require('fs');
+const chalk = require('chalk');
+
+let defValue = {
     hostname: 'localhost',
     port: 3113,
     homepage: 'index',
@@ -21,19 +23,19 @@ var defValue = {
     ngrokpath: '/usr/bin/ngrok'
 };
 
-var files = [];
+let files = [];
 
-program
-    .version(message.v());
+program.version(message.v());
+
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here')
     .option('-l, --log', 'default is disabled')
-    .option('-d, --domain <domain>','domain or domain. default to localhost')
+    .option('-d, --domain <domain>', 'domain or domain. default to localhost')
     .option('-p, --port <port>', 'startServer port. default port is 3113')
     .option('-m, --main <homepage>', 'index file to start. no extension (html only)')
     .option('-w, --watch', 'watch project root directory for file changes. default is enabled')
-    .option('-f, --files <files>','comma separated files extension to watch. default is all file types.')
+    .option('-f, --files <files>', 'comma separated files extension to watch. default is all file types.')
     .option('-n, --ngrok', 'using ngrok to expose local web server to internet. default is disabled')
     .option('-N, --ngrok-path <ngrokpath>', 'ngrok binary path. default path to /usr/bin/ngrok')
     .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
@@ -46,32 +48,32 @@ program
 
         path === '.' ? path = rootPath.resolve('.') : path;
 
-        var projectPath = rootPath.resolve(process.cwd(), path || '');
-        var host = program.domain || defValue.hostname;
-        var port = program.port || defValue.port;
-        var homepage = program.main || defValue.homepage;
-        var isWatching = program.watch || defValue.isWatching;
-        var log = program.log || defValue.log;
-        var useNgrok = program.ngrok || defValue.ngrok;
-        var ngrokPath = program.ngrokpath || defValue.ngrokpath;
-        var subdomain = program.subdomain || null;
-        var auth = program.auth || '';
-        var filter = program.files || defValue.files;
-        var options = {
+        let projectPath = rootPath.resolve(process.cwd(), path || '');
+        let host = program.domain || defValue.hostname;
+        let port = program.port || defValue.port;
+        let homepage = program.main || defValue.homepage;
+        let isWatching = program.watch || defValue.isWatching;
+        let log = program.log || defValue.log;
+        let useNgrok = program.ngrok || defValue.ngrok;
+        let ngrokPath = program.ngrokpath || defValue.ngrokpath;
+        let subdomain = program.subdomain || null;
+        let auth = program.auth || '';
+        let filter = program.files || defValue.files;
+        let options = {
             hostname: host,
             port: port,
             homepage: homepage,
             log: log
         }
-        var svh = null;
-        var ngrokOptions;
-        var validFileChanged = false;
+        let svh = null;
+        let ngrokOptions;
+        let validFileChanged = false;
 
         message.version();
 
         if (useNgrok) {
             ngrokOptions = {
-                'ngrokpath':ngrokPath,
+                'ngrokpath': ngrokPath,
                 'port': port,
                 'subdomain': subdomain,
                 'auth': auth,
@@ -81,46 +83,46 @@ program
         }
 
         if (isWatching) {
-            var watcherOptions = {
+            let watcherOptions = {
                 ignoreDotFiles: true,
                 ignoreUnreadableDir: true
             };
 
             watcher.watchTree(path, watcherOptions, function (f, curr, prev) {
-                if(filter === "*"){
-                        validFileChanged = true;
-                } else{
+                if (filter === "*") {
+                    validFileChanged = true;
+                } else {
                     if (typeof f == 'object' && prev === null && curr === null) {
 
                         console.log('[Watch]');
-                        Object.keys(f).forEach(function(name) {
-                            var stat = f[name];
+                        Object.keys(f).forEach(function (name) {
+                            let stat = f[name];
                             filesToWatch(name, stat, filter);
                         });
                         validFileChanged = true;
                     } else if (prev === null) {
                         // new file
-                        var newFile = fs.statSync(f);
-                        var extNewFile = pathNode.extname(f).split('.');
+                        let newFile = fs.statSync(f);
+                        let extNewFile = pathNode.extname(f).split('.');
 
-                        if(newFile['size'] == 0) {
+                        if (newFile['size'] == 0) {
                             validFileChanged = false;
                             // save file path to files to watch if ext is on filter
-                            if(extNewFile.length > 1) {
-                                var extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
-                                if( extExistOnFilter != -1) {
-                                    if(files.indexOf(f) == -1) {
+                            if (extNewFile.length > 1) {
+                                let extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
+                                if (extExistOnFilter != -1) {
+                                    if (files.indexOf(f) == -1) {
                                         files.push(f);
                                         console.log('[Watch]');
-                                        console.log(chalk.green.bold('- ')+chalk.green.bold(f));
+                                        console.log(chalk.green.bold('- ') + chalk.green.bold(f));
                                     }
                                 }
                             }
                         } else {
                             // check extension
-                            if(extNewFile.length > 1) {
-                                var extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
-                                if( extExistOnFilter != -1) {
+                            if (extNewFile.length > 1) {
+                                let extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
+                                if (extExistOnFilter != -1) {
                                     files.push(f);
                                     validFileChanged = true;
                                 } else {
@@ -133,22 +135,22 @@ program
 
                     } else if (curr.nlink === 0) {
                         // f was removed so should removed file from files array
-                        var removedFile = files.indexOf(f);
-                        if(removedFile != -1) {
+                        let removedFile = files.indexOf(f);
+                        if (removedFile != -1) {
                             files.splice(removedFile, 1);
                             console.log('[Remove]');
-                            console.log(chalk.red.bold('- ')+chalk.red.bold(f));
+                            console.log(chalk.red.bold('- ') + chalk.red.bold(f));
                             validFileChanged = true;
                         } else {
                             validFileChanged = false;
                         }
                     } else {
-                        var exist = files.indexOf(f);
+                        let exist = files.indexOf(f);
                         (exist != -1) ? validFileChanged = true : validFileChanged = false;
                     }
                 }
 
-                if(validFileChanged){
+                if (validFileChanged) {
                     if (svh !== null) {
                         console.log('closing server...');
                         svh.close();
@@ -169,29 +171,29 @@ program
 
 program.parse(process.argv);
 
-if(!process.argv.slice(2).length) {
+if (!process.argv.slice(2).length) {
     program.help();
 } else {
-    if(process.argv.slice(2)[0] !== 'serve') {
+    if (process.argv.slice(2)[0] !== 'serve') {
         program.help();
     }
 }
 
 var callback_server = function (options) {
-    console.log('node will serve you at http://'+options.domain+':' + options.port);
+    console.log('node will serve you at http://' + options.hostname + ':' + options.port);
 };
 
-var filesToWatch = function(f, stat, filter) {
-    var ignoreDir = [];
+var filesToWatch = function (f, stat, filter) {
+    let ignoreDir = [];
     ignoreDir = f.match(/node_modules/);
-    if(!ignoreDir){
-        if(filter === "*") return true;
+    if (!ignoreDir) {
+        if (filter === "*") return true;
         // push files based on valid files extension to watch
-        var ext = pathNode.extname(f).split('.');
-        filter.split(',').forEach(function(value){
-            if(ext[ext.length - 1] != ''){
-                if(ext[ext.length - 1] === value) {
-                    console.log(chalk.green.bold('- ')+chalk.blue.bold(f));
+        let ext = pathNode.extname(f).split('.');
+        filter.split(',').forEach(function (value) {
+            if (ext[ext.length - 1] != '') {
+                if (ext[ext.length - 1] === value) {
+                    console.log(chalk.green.bold('- ') + chalk.blue.bold(f));
                     files.push(f);
                 }
             }
