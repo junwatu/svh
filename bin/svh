@@ -26,7 +26,6 @@ let defValue = {
 let files = [];
 
 program.version(message.v());
-
 program
     .command('serve [path]')
     .description('\tRun Node Serve Here')
@@ -88,7 +87,7 @@ program
                 ignoreUnreadableDir: true
             };
 
-            watcher.watchTree(path, watcherOptions, function (f, curr, prev) {
+            watcher.watchTree(path, watcherOptions, (f, curr, prev) => {
                 if (filter === "*") {
                     validFileChanged = true;
                 } else {
@@ -101,7 +100,6 @@ program
                         });
                         validFileChanged = true;
                     } else if (prev === null) {
-                        // new file
                         let newFile = fs.statSync(f);
                         let extNewFile = pathNode.extname(f).split('.');
 
@@ -119,7 +117,6 @@ program
                                 }
                             }
                         } else {
-                            // check extension
                             if (extNewFile.length > 1) {
                                 let extExistOnFilter = filter.split(',').indexOf(extNewFile[1]);
                                 if (extExistOnFilter != -1) {
@@ -134,7 +131,6 @@ program
                         }
 
                     } else if (curr.nlink === 0) {
-                        // f was removed so should removed file from files array
                         let removedFile = files.indexOf(f);
                         if (removedFile != -1) {
                             files.splice(removedFile, 1);
@@ -151,14 +147,20 @@ program
                 }
 
                 if (validFileChanged) {
+                    let reload = false;
+
                     if (svh !== null) {
-                        console.log('closing server...');
                         svh.close();
-                        console.log('[' + new Date() + '] starting server...');
+                        reload = true;
+                        options.reload = reload;
                         svh = app.server(path, options, callback_server(options));
                         app.setReload(true);
+                        console.log(`[${new Date()}] reload server`);
+
                     } else {
-                        console.log('[' + new Date() + '] starting server...');
+                        //console.log(`[${new Date()}] starting server...`);
+                        reload = false;
+                        options.reload = false;
                         svh = app.server(path, options, callback_server(options));
                         app.setReload(false);
                     }
@@ -179,18 +181,21 @@ if (!process.argv.slice(2).length) {
     }
 }
 
-var callback_server = function (options) {
-    console.log('node will serve you at http://' + options.hostname + ':' + options.port);
+
+let callback_server = (options) => {
+    if (!options.reload) {
+        console.log(`node will serve you at http://${options.hostname}:${options.port}`);
+    }
 };
 
-var filesToWatch = function (f, stat, filter) {
+let filesToWatch = (f, stat, filter) => {
     let ignoreDir = [];
     ignoreDir = f.match(/node_modules/);
     if (!ignoreDir) {
         if (filter === "*") return true;
         // push files based on valid files extension to watch
         let ext = pathNode.extname(f).split('.');
-        filter.split(',').forEach(function (value) {
+        filter.split(',').forEach((value) => {
             if (ext[ext.length - 1] != '') {
                 if (ext[ext.length - 1] === value) {
                     console.log(chalk.green.bold('- ') + chalk.blue.bold(f));
