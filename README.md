@@ -9,11 +9,10 @@ It will serve html, js, css, image and it's configurable via cli option except f
 
 ## Features
 
-
 - Configurable via cli options.
 - Auto watch files.
 - Auto reload browser.
-- Publish site support through ngrok.
+- Public site support through ngrok.
 - Files filter.
 
 > NOTE:
@@ -64,14 +63,13 @@ or customize the port with `-p` option
 $ svh serve -p 3003 your_project_dir
 ```
 
-svh will pickup `index.html` file by default but you can customize it with `-m` option.
-For example to pickup `main.html` as startup page, type this command
+svh will pickup `index.html` file by default but you can customize it with `-m` option, for example to pickup `main.html` as startup page type this command
 
 ```
 $ svh serve -m main  your_project_dir
 ```
 
-svh will watch project directory and auto reload browser it if there are any files changes.
+svh will watch project directory and auto reload browser if there are any files changes.
 To disable auto watch use `-w` option
 
 ```
@@ -79,7 +77,7 @@ $ svh serve -w your_project_dir
 ```
 ### Use with ngrok 2
 
-svh support to expose your project to publis site via [ngrok][1], it's awesome tool by the way but make sure that it's already installed in your system. The default path is
+svh support to expose your project to public via [ngrok][1]. it's awesome tool by the way but make sure that it's already installed in your system. The default path is
 
 ```
 /usr/bin/ngrok
