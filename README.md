@@ -1,5 +1,5 @@
-SVH (Node Serve Here)
-=====================
+# SVH (Node Serve Here)
+
 
 [![Build Status](https://travis-ci.org/junwatu/svh.png?branch=master)](https://travis-ci.org/junwatu/svh)
 
@@ -7,8 +7,8 @@ Simple file server for web client app development.
 It will serve html, js, css, image and it's configurable via cli option except for dotfiles.
 
 
-Features
--------
+## Features
+
 
 - Configurable via cli options.
 - Auto watch files.
@@ -16,14 +16,11 @@ Features
 - Publish site support through ngrok.
 - Files filter.
 
-
 > NOTE:
 
 > Tested only on UNIX/Linux based OS.
 
-
-Usage
------
+## Usage
 
 Install svh via the awesome npm
 
@@ -31,7 +28,7 @@ Install svh via the awesome npm
 $ sudo npm install -g svh
 ```
 
-help
+help command
 
 ```
 $ svh serve --help
@@ -80,7 +77,7 @@ To disable auto watch use `-w` option
 ```
 $ svh serve -w your_project_dir
 ```
-###Use with ngrok
+### Use with ngrok 2
 
 svh support to expose your project to publis site via [ngrok][1], it's awesome tool by the way but make sure that it's already installed in your system. The default path is
 
@@ -103,6 +100,9 @@ To expose your local project to public internet but with basic authentication ju
 ```
 $ svh serve -n -a user:password project_dir
 ```
+
+> Custom domain only for paid user 
+
 You can pass custom subdomain name via `-s` option. For example if you type this command
 
 ```
@@ -111,7 +111,7 @@ $ svh serve -n  -a shoot:angel -s cross-finger your_project_dir
 then you can access your local project on address
 
 ```
-http://cross-finger.ngrok.com
+http://cross-finger.ngrok.io
 ```
 
 If ngrok installed on custom path use `-N` option so svh will recognize it.
@@ -124,7 +124,7 @@ $ svh serve -n -N /home/angel/bin/ngrok -a shoot:angel project_dir
 
 > svh currently doesn't support for ngrok configuration file
 
-###Filter
+## Filter
 
 From version 0.0.7 you can use files filter through comma separated extension list by add `--files` command option
 
@@ -133,24 +133,18 @@ From version 0.0.7 you can use files filter through comma separated extension li
 by default svh will ignore `node_modules` directory.
 
 
-Contribute
-----------
+## Contribute
 
-Please feel free to fork and pull any request
-
-
-----------
-
+Please feel free to fork and pull any request.
 
 Thank's
 
 
-LICENSE
--------
+## LICENSE
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Equan Pr.
+Copyright (c) 2016 Equan Pr.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation
