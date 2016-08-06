@@ -12,6 +12,7 @@ const pathNode = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
 
+let files = [];
 let defValue = {
     hostname: 'localhost',
     port: 3113,
@@ -22,8 +23,6 @@ let defValue = {
     ngrok: false,
     ngrokpath: '/usr/bin/ngrok'
 };
-
-let files = [];
 
 program.version(message.v());
 program
@@ -39,11 +38,9 @@ program
     .option('-N, --ngrok-path <ngrokpath>', 'ngrok binary path. default path to /usr/bin/ngrok')
     .option('-s, --subdomain <subdomain>', 'subdomain for ngrok')
     .option('-a, --auth <auth>', 'simple auth for ngrok')
-    .action(function (path, program) {
+    .action((path, program) => {
 
-        if (!process.argv.slice(3).length) {
-            program.help();
-        }
+        if (!process.argv.slice(3).length) { program.help(); }
 
         path === '.' ? path = rootPath.resolve('.') : path;
 
@@ -58,43 +55,28 @@ program
         let subdomain = program.subdomain || null;
         let auth = program.auth || '';
         let filter = program.files || defValue.files;
-        let options = {
-            hostname: host,
-            port: port,
-            homepage: homepage,
-            log: log
-        }
+        let options = { hostname: host, port: port, homepage: homepage, log: log };
         let svh = null;
-        let ngrokOptions;
         let validFileChanged = false;
+        let ngrokOptions;
 
         message.version();
 
         if (useNgrok) {
-            ngrokOptions = {
-                'ngrokpath': ngrokPath,
-                'port': port,
-                'subdomain': subdomain,
-                'auth': auth,
-                'configdir': projectPath
-            };
+            ngrokOptions = { 'ngrokpath': ngrokPath, 'port': port, 'subdomain': subdomain, 'auth': auth, 'configdir': projectPath };
             ngrok.expose(ngrokOptions);
         }
 
         if (isWatching) {
-            let watcherOptions = {
-                ignoreDotFiles: true,
-                ignoreUnreadableDir: true
-            };
+            let watcherOptions = { ignoreDotFiles: true, ignoreUnreadableDir: true };
 
             watcher.watchTree(path, watcherOptions, (f, curr, prev) => {
                 if (filter === "*") {
                     validFileChanged = true;
                 } else {
                     if (typeof f == 'object' && prev === null && curr === null) {
-
                         console.log('[Watch]');
-                        Object.keys(f).forEach(function (name) {
+                        Object.keys(f).forEach((name) => {
                             let stat = f[name];
                             filesToWatch(name, stat, filter);
                         });
@@ -156,7 +138,6 @@ program
                         svh = app.server(path, options, callback_server(options));
                         app.setReload(true);
                         console.log(`[${new Date()}] reload server`);
-
                     } else {
                         //console.log(`[${new Date()}] starting server...`);
                         reload = false;
@@ -181,11 +162,8 @@ if (!process.argv.slice(2).length) {
     }
 }
 
-
 let callback_server = (options) => {
-    if (!options.reload) {
-        console.log(`node will serve you at http://${options.hostname}:${options.port}`);
-    }
+    if (!options.reload) console.log(`node will serve you at http://${options.hostname}:${options.port}`);
 };
 
 let filesToWatch = (f, stat, filter) => {
