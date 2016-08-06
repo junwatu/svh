@@ -1,7 +1,7 @@
 {
   "name": "svh",
   "version": "0.0.7",
-  "author": "Equan Pr. <byte@equan.me> (http://equan.me)",
+  "author": "Equan Pr. <equan.p@gmail.com> (http://junwatu.github.io)",
   "description": "Simple (file) server for front-end app development",
   "keywords": [
     "auto",
@@ -34,6 +34,9 @@
     "request": "~2.58.0",
     "serve-favicon": "^2.3.0",
     "watch": "0.8.x"
+  },
+  "engines":{
+    "node": ">=6.0.0"
   },
   "devDependencies": {
     "mocha": "1.13.x",
