@@ -3,9 +3,7 @@
 
 [![Build Status](https://travis-ci.org/junwatu/svh.png?branch=master)](https://travis-ci.org/junwatu/svh)
 
-Simple file server for web client app development.
-It will serve html, js, css, image and it's configurable via cli option except for dotfiles.
-
+Simple file server for web.
 
 ## Features
 
@@ -38,7 +36,7 @@ Usage: serve [options] [path]
     -p, --port <port>             startServer port. default port is 3113
     -m, --main <homepage>         index file to start. no extension (html only)
     -w, --watch                   watch project root directory for file changes. default is enabled
-    -f, --files <files>           comma separated files extension to watch. default is all file types.
+    -f, --files <files>           comma separated files extension to watch. default is all file types
     -n, --ngrok                   using ngrok to expose local web server to internet. default is disabled
     -N, --ngrok-path <ngrokpath>  ngrok binary path. default path is local install
     -s, --subdomain <subdomain>   subdomain for ngrok
