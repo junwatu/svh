@@ -12,6 +12,8 @@ const pathNode = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
 
+let bin = require('../lib/ngrok/wrapper.js');
+
 let files = [];
 let defValue = {
     hostname: 'localhost',
@@ -21,7 +23,7 @@ let defValue = {
     files: '*',
     log: false,
     ngrok: false,
-    ngrokpath: '/usr/bin/ngrok'
+    ngrokpath: bin.path()
 };
 
 program.version(message.v());
