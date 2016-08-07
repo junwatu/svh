@@ -8,10 +8,13 @@
   "main": "./lib/core.js",
   "scripts": {
     "build": "uglifyjs ./lib/client/svh.js -o ./lib/client/svh.min.js",
-    "test": "mocha"
+    "test": "mocha",
+    "test-postinstall": "npm run postinstall",
+    "postinstall": "node lib/postinstall.js"
   },
   "dependencies": {
     "async": "2.0.x",
+    "bin-wrapper": "^3.0.2",
     "chalk": "1.1.x",
     "cheerio": "0.20.x",
     "commander": "2.9.x",
@@ -22,7 +25,7 @@
     "serve-favicon": "2.3.x",
     "watch": "0.19.x"
   },
-  "engines":{
+  "engines": {
     "node": ">=6.0.0"
   },
   "devDependencies": {
