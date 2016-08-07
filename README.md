@@ -15,10 +15,6 @@ It will serve html, js, css, image and it's configurable via cli option except f
 - Public site support through ngrok.
 - Files filter.
 
-> NOTE:
-
-> Tested only on UNIX/Linux based OS.
-
 ## Usage
 
 Install svh via the awesome npm
@@ -44,10 +40,9 @@ Usage: serve [options] [path]
     -w, --watch                   watch project root directory for file changes. default is enabled
     -f, --files <files>           comma separated files extension to watch. default is all file types.
     -n, --ngrok                   using ngrok to expose local web server to internet. default is disabled
-    -N, --ngrok-path <ngrokpath>  ngrok binary path. default path to /usr/bin/ngrok
+    -N, --ngrok-path <ngrokpath>  ngrok binary path. default path is local install
     -s, --subdomain <subdomain>   subdomain for ngrok
     -a, --auth <auth>             simple auth for ngrok
-
 
 ```
 
@@ -75,22 +70,29 @@ To disable auto watch use `-w` option
 ```
 $ svh serve -w your_project_dir
 ```
-### Use with ngrok 2
+### Filter
 
-svh support to expose your project to public via [ngrok][1]. it's awesome tool by the way but make sure that it's already installed in your system. The default path is
+From version 0.1.0 you can use files filter through comma separated extension list by add `--files` command option
 
 ```
-/usr/bin/ngrok
+$ svh serve --files=html,css,js,jsx your_project_dir
 ```
-other than that, you should pass ngrok path via `-N` option.
 
-To use ngrok use command option `-n` and svh will create random subdomain for your project.
+by default svh will ignore `node_modules` directory.
 
-For example to expose `your_project_dir` to public internet just type this command
+### ngrok 2
+
+svh support to expose your project to public via [ngrok][1] and it will auto download ngrok binary and install it in `vendor` folder. For example to expose `your_project_dir` to public internet just type this command
 
 ```
 $ svh serve --ngrok your_project_dir
 
+```
+
+If you want to use ngrok 2 but other version than local installed, you should pass ngrok path via `-N` option
+
+```
+$ svh serve -n -N /home/angel/bin/ngrok project_dir
 ```
 
 To expose your local project to public internet but with basic authentication just type this command
@@ -99,7 +101,7 @@ To expose your local project to public internet but with basic authentication ju
 $ svh serve -n -a user:password project_dir
 ```
 
-> Custom domain only for paid user 
+> NOTE: Custom domain only for paid user 
 
 You can pass custom subdomain name via `-s` option. For example if you type this command
 
@@ -111,25 +113,6 @@ then you can access your local project on address
 ```
 http://cross-finger.ngrok.io
 ```
-
-If ngrok installed on custom path use `-N` option so svh will recognize it.
-
-```
-$ svh serve -n -N /home/angel/bin/ngrok -a shoot:angel project_dir
-```
-
-> NOTE:
-
-> svh currently doesn't support for ngrok configuration file
-
-## Filter
-
-From version 0.0.7 you can use files filter through comma separated extension list by add `--files` command option
-
-    $ svh serve --files=html,css,js,jsx your_project_dir
-
-by default svh will ignore `node_modules` directory.
-
 
 ## Contribute
 
