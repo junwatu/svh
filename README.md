@@ -80,7 +80,8 @@ by default svh will ignore `node_modules` directory.
 
 ### ngrok 2
 
-svh support to expose your project to public via [ngrok][1] and it will auto download ngrok binary and install it in `vendor` folder. For example to expose `your_project_dir` to public internet just type this command
+svh can expose your project to public via [ngrok][1]. svh  will auto download ngrok binary and install it in `vendor` folder. 
+ For example to expose `your_project_dir` to public internet just type this command
 
 ```
 $ svh serve --ngrok your_project_dir
@@ -97,9 +98,8 @@ To expose your local project to public internet but with basic authentication ju
 
 ```
 $ svh serve -n -a user:password project_dir
-```
-
-> NOTE: Custom domain only for paid user 
+``` 
+> Custom domain only for paid user
 
 You can pass custom subdomain name via `-s` option. For example if you type this command
 
@@ -111,6 +111,11 @@ then you can access your local project on address
 ```
 http://cross-finger.ngrok.io
 ```
+
+> Please note that only simple ngrok options that supported 
+
+Currently only support `http` tunneling, `--auth` and `--subdomain`.
+
 
 ## Contribute
 
