@@ -1,6 +1,6 @@
 {
   "name": "svh",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Equan Pr. <equan.p@gmail.com> (http://junwatu.github.io)",
   "description": "Simple file server",
   "homepage": "https://github.com/junwatu/svh",
@@ -8,25 +8,25 @@
   "main": "./lib/core.js",
   "scripts": {
     "build": "uglifyjs ./lib/client/svh.js -o ./lib/client/svh.min.js",
-    "test": "mocha",
-    "test-postinstall": "npm run postinstall",
-    "postinstall": "node lib/postinstall.js"
+    "test": "mocha"
   },
   "dependencies": {
     "async": "2.0.x",
     "bin-wrapper": "^3.0.2",
+    "body-parser": "^1.19.0",
     "chalk": "1.1.x",
-    "cheerio": "0.20.x",
-    "commander": "2.9.x",
-    "concat-stream": "1.5.x",
-    "express": "3.21.x",
-    "random-words": "0.0.1",
+    "cheerio": "1.0.0-rc.3",
+    "commander": "5.0.0",
+    "compression": "^1.7.4",
+    "concat-stream": "2.0.0",
+    "express": "4.17.1",
+    "random-words": "1.1.1",
     "request": "2.x.x",
-    "serve-favicon": "2.3.x",
-    "watch": "0.19.x"
+    "serve-favicon": "2.5.0",
+    "watch": "1.0.2"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=10.0.0"
   },
   "devDependencies": {
     "mocha": "3.0.x",
